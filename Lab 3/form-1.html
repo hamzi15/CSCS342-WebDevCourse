@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form 1</title>
+    <link href = "form-1.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<form>
+    <fieldset> 
+        <legend>Application form</legend>
+        <label>
+            Full name
+        </label> 
+        <label>
+            <input type = "text">
+        </label><br>
+
+    <br>
+    <label>Gender</label>
+    <input type = "radio" value = "male" name = "mInput"> 
+    <label>Male</label>
+    <input type = "radio" value = "female" name = "fInput">
+    <label>
+        Female
+    </label><br>
+    <label>
+        Nationality
+    </label>
+    <select name = "nationalityDropdown">
+        <option value = "sc">--Select--</option>
+        <option value = "pk">Pakistani</option>
+        <option value = "eu">European</option>
+        <option value = "am">American</option>
+    </select>
+    <br>
+    <table>
+        <tr>
+            <td>Skills</td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <input type = "checkbox" name = "aspName">
+                            <label>Asp.Net</label>
+                            <input type = "checkbox" name = "jName">
+                            <label>jQuery</label>
+                        </td>
+                        </tr>
+                    <tr>
+                        <td>
+
+                            <input type = "checkbox" name = "mvcName">
+                            <label>MVC</label>
+                            <input type = "checkbox" name = "serverName">
+                            <label>Server</label> 
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <table>
+        <tr>
+            <td>Posts applying for</td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <input type = "radio" name = "aspName">
+                            <label>Asp.Net</label>
+                            <input type = "radio" name = "jNAme">
+                            <label>jQuery</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type = "radio" name = "mvcName">
+                            <label>MVC</label>
+                            <input type = "radio"name = "serverName">
+                            <label>Server</label>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <label>Upload Resume: </label>
+    <input type = "file" name = "resume">
+    <br>
+    <label>Paste your resume </label>
+    <textarea rows= 5 cols = 30> </textarea>
+    <br>
+    <input type = "checkbox" name = "emailName">
+    <label>Notify me the status via Email</label>
+    <br>
+    <input type = "radio" name = "termsName">
+    <label>I agree to terms & conditions</label>
+    <br>
+    <div id = "subResButtons">
+        <input type = "submit" value = "Submit">
+        <input type = "reset" value = "Reset">
+    </div>
+    </fieldset>
+</form>
+
+
+</body>
+</html>

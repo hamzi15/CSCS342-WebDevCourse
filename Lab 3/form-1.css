@@ -1,0 +1,18 @@
+html, body {
+    height:100%;
+    width:100%;
+    margin:0;
+    font-family: "Times New Roman", serif;
+}
+
+body {
+    background-color: #1bb1ec;
+    display:flex;
+}
+form {
+    margin:auto;
+    background-color: #dde1e7;
+}
+#subResButtons{
+    text-align: center;
+}
