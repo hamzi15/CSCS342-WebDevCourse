@@ -47,7 +47,8 @@ li {
 }
 
 #subButton button {
-    background: #4887ef; 
+    background: lightgray; 
+    color: gray;
     margin-right: 25px;
     padding: 7px 15px;
     border-radius: 3px; 
