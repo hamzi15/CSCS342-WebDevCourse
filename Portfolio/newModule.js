@@ -98,10 +98,11 @@
 
 						material = materials[ cube_count ];
 
-						material.hue = i / xgrid;
-						material.saturation = 1 - j / ygrid;
+						material.hue = 1;
+						material.saturation = 1;
 
-						material.color.setHSL( material.hue, material.saturation, 0.5 );
+						material.color.setRGB( material.hue, material.saturation, 1
+                             );
 
 						mesh = new THREE.Mesh( geometry, material );
 
@@ -205,8 +206,8 @@
 
 					material = materials[ i ];
 
-					h = ( 360 * ( material.hue + time ) % 360 ) / 360;
-					material.color.setHSL( h, material.saturation, 0.5 );
+					h = 1;
+					material.color.setRGB( 1, 1, 1);
 
 				}
 
