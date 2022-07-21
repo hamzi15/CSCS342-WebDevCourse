@@ -66,6 +66,7 @@
 						fog: scene.fog !== undefined
 					}
 				);
+				
 
 				water.rotation.x = - Math.PI / 2;
 				water.position.set(0,-370,-0)
@@ -73,7 +74,7 @@
 
 				// Skybox
 
-				/*const sky = new Sky();
+				const sky = new Sky();
 				sky.scale.setScalar( 10000 );
 				scene.add( sky );
 
@@ -83,13 +84,12 @@
 				skyUniforms[ 'rayleigh' ].value = 2;
 				skyUniforms[ 'mieCoefficient' ].value = 0.005;
 				skyUniforms[ 'mieDirectionalG' ].value = 0.8;
-*/
-				const parameters = {
-					elevation: 2,
-					azimuth: 180
+			const parameters = {
+					elevation:0,
+					azimuth: 100
 				};
-/*
-				const pmremGenerator = new THREE.PMREMGenerator( renderer );
+
+	/*			const pmremGenerator = new THREE.PMREMGenerator( renderer );
 
 				function updateSun() {
 
@@ -105,8 +105,8 @@
 
 				}
 
-				updateSun();*/
-
+				updateSun();
+*/
 				//
 
 				
