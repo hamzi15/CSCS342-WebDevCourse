@@ -10,8 +10,11 @@
 
 			let container, stats;
 			let camera, scene, renderer;
-			let controls, water, sun, mesh;
+			let controls, water, sun, mesh,geometry;
 
+		
+			let material;
+			let mouse, center;
 			init();
 			animate();
 
@@ -26,13 +29,17 @@
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				renderer.toneMapping = THREE.ACESFilmicToneMapping;
 				container.appendChild( renderer.domElement );
+				
+
+
+				mouse = new THREE.Vector3( 0, 0, 1 );
 
 				//
 
 				scene = new THREE.Scene();
 
-				camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 20000 );
-				camera.position.set( 30, 30, 100 );
+				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.set( 0, 0, 500 );
 
 				//
 
@@ -61,12 +68,12 @@
 				);
 
 				water.rotation.x = - Math.PI / 2;
-
+				water.position.set(0,-370,-0)
 				scene.add( water );
 
 				// Skybox
 
-				const sky = new Sky();
+				/*const sky = new Sky();
 				sky.scale.setScalar( 10000 );
 				scene.add( sky );
 
@@ -76,12 +83,12 @@
 				skyUniforms[ 'rayleigh' ].value = 2;
 				skyUniforms[ 'mieCoefficient' ].value = 0.005;
 				skyUniforms[ 'mieDirectionalG' ].value = 0.8;
-
+*/
 				const parameters = {
 					elevation: 2,
 					azimuth: 180
 				};
-
+/*
 				const pmremGenerator = new THREE.PMREMGenerator( renderer );
 
 				function updateSun() {
@@ -98,17 +105,70 @@
 
 				}
 
-				updateSun();
+				updateSun();*/
 
 				//
 
-				const geometry = new THREE.BoxGeometry( 30, 30, 30 );
-				const material = new THREE.MeshStandardMaterial( { roughness: 0 } );
+				
+				
+				center = new THREE.Vector3();
+				center.z = - 1000;
 
-				mesh = new THREE.Mesh( geometry, material );
+				const video = document.getElementById( 'video' );
+
+				const texture = new THREE.VideoTexture( video );
+				texture.minFilter = THREE.NearestFilter;
+
+				const width = 640, height = 480;
+				const nearClipping = 850, farClipping = 3000;
+
+				geometry = new THREE.BufferGeometry();
+
+				const vertices = new Float32Array( width * height * 3 );
+
+				for ( let i = 0, j = 0, l = vertices.length; i < l; i += 3, j ++ ) {
+
+					vertices[ i ] = j % width;
+					vertices[ i + 1 ] = Math.floor( j / width );
+
+				}
+
+				geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+
+				material = new THREE.ShaderMaterial( {
+
+					uniforms: {
+
+						'map': { value: texture },
+						'width': { value: width },
+						'height': { value: height },
+						'nearClipping': {value:850 },
+						'farClipping': { value: 3000 },
+
+						'pointSize': { value: 2 },
+						'zOffset': { value: 1000 }
+
+					},
+					vertexShader: document.getElementById( 'vs' ).textContent,
+					fragmentShader: document.getElementById( 'fs' ).textContent,
+					blending: THREE.AdditiveBlending,
+					depthTest: false, depthWrite: false,
+					transparent: true
+
+				} );
+
+				mesh = new THREE.Points( geometry, material );
+				mesh.position.copy( center );
+				mesh
 				scene.add( mesh );
+				
+
+				video.play();
 
 				//
+
+				
+/*				
 
 				controls = new OrbitControls( camera, renderer.domElement );
 				controls.maxPolarAngle = Math.PI * 0.495;
@@ -119,8 +179,7 @@
 
 				//
 
-				stats = new Stats();
-				container.appendChild( stats.dom );
+				
 
 				// GUI
 
@@ -137,10 +196,11 @@
 				folderWater.add( waterUniforms.distortionScale, 'value', 0, 8, 0.1 ).name( 'distortionScale' );
 				folderWater.add( waterUniforms.size, 'value', 0.1, 10, 0.1 ).name( 'size' );
 				folderWater.open();
-
+*/
 				//
 
 				window.addEventListener( 'resize', onWindowResize );
+				document.addEventListener( 'mousemove', onDocumentMouseMove );
 
 			}
 
@@ -152,12 +212,19 @@
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
 			}
+			function onDocumentMouseMove( event ) {
+
+				mouse.x = ( event.clientX - window.innerWidth / 2 );
+				mouse.y = ( event.clientY - window.innerHeight / 2 );
+				
+			}
+
 
 			function animate() {
 
 				requestAnimationFrame( animate );
 				render();
-				stats.update();
+				
 
 			}
 
@@ -165,9 +232,9 @@
 
 				const time = performance.now() * 0.001;
 
-				mesh.position.y = Math.sin( time ) * 20 + 5;
-				mesh.rotation.x = time * 0.5;
-				mesh.rotation.z = time * 0.51;
+				camera.position.x += ( mouse.x - camera.position.x ) * 0.05;
+				camera.position.y += ( - mouse.y - camera.position.y ) * 0.05;
+				camera.lookAt( center );
 
 				water.material.uniforms[ 'time' ].value += 1.0 / 60.0;
 
